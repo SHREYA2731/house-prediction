@@ -1,0 +1,29 @@
+
+import streamlit as st
+import numpy as np
+import joblib
+#uploading the model
+
+model=joblib.load("rf.pkl")
+st.title("House Price Prediction")
+
+st.markdown("---")
+bedroom=st.number_input("enter the number of bedroom",min_value=0,value=0)
+bathroom=st.number_input("enter the number of bathroom",min_value=0,value=0)
+living_area=st.number_input("enter the number of living_area",min_value=2000,value=2000)
+condition_of_the_house=st.number_input("enter the house condition ",min_value=0,value=0)
+school=st.number_input("enter the number of school ",min_value=0,value=0)
+x=[[bedroom,bathroom,living_area,condition_of_the_house,school]]
+
+
+pred=st.button("predict")
+
+if pred==True:
+    np_array=np.array(x)
+    price=int(model.predict(np_array)[0])
+    st.write(f"House Price={price}")
+
+else:
+    st.write(f"please click")
+
+
